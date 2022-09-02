@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>842347528183-nltr2emori520ir1akjh9p3eqnc1lgnk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.842347528183-nltr2emori520ir1akjh9p3eqnc1lgnk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDZgcDF7p9j1bi8sVDfJDmBV1mTXXKl_RQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>842347528183</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.belloo.happiness.happinessClient</string>
+	<key>PROJECT_ID</key>
+	<string>happiness-belloo</string>
+	<key>STORAGE_BUCKET</key>
+	<string>happiness-belloo.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:842347528183:ios:6d68e4f5cb33766be938f2</string>
+</dict>
+</plist>

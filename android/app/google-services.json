@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "842347528183",
+    "project_id": "happiness-belloo",
+    "storage_bucket": "happiness-belloo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842347528183:android:4afca94a90161bdbe938f2",
+        "android_client_info": {
+          "package_name": "com.belloo.happiness.happiness_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842347528183-1eja1igu6k7isgrtne5o9gq6iu6nrmch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvETczI90PT0ckPCShswFYKcGRVeoSVi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842347528183-1eja1igu6k7isgrtne5o9gq6iu6nrmch.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "842347528183-nltr2emori520ir1akjh9p3eqnc1lgnk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.belloo.happiness.happinessClient"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
