@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             Text(title),
             Text(name),
             Row(
-              children: [LoginButton()],
+              children: [GoogleLoginButton(), FacebookLoginButton()],
             )
           ],
         ),
@@ -32,11 +32,29 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LoginButton extends StatelessWidget {
+class GoogleLoginButton extends StatelessWidget {
   final LoginController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: c.loginGoogle, child: const Text(LoginController.naver));
+    return TextButton(onPressed: c.loginGoogle, child: const Text(LoginController.google));
+  }
+}
+
+class FacebookLoginButton extends StatelessWidget {
+  final LoginController c = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(onPressed: c.loginFacebook, child: const Text(LoginController.facebook));
+  }
+}
+
+class FacebookLogoutButton extends StatelessWidget {
+  final LoginController c = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(onPressed: c.logoutFacebook, child: const Text("facebook logout"));
   }
 }

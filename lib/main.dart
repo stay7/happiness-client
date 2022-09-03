@@ -6,16 +6,16 @@ import 'package:happiness_client/screen/login_screen.dart';
 import 'firebase_options.dart';
 
 // https://firebase.google.com/docs/auth/flutter/start
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();  // flutter가 native code를 호출할 떄 사용한다
-  initFirebase();
+  await initFirebase();
   runApp(const GetCupertinoApp(home: LoginScreen()));
 }
 
-void initFirebase() async {
+Future initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 }

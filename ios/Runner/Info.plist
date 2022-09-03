@@ -46,7 +46,6 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 
-    <!-- Google Sign-in Section -->
     <key>CFBundleURLTypes</key>
     <array>
     	<dict>
@@ -54,11 +53,23 @@
     		<string>Editor</string>
     		<key>CFBundleURLSchemes</key>
     		<array>
+                <string>fb495743285889743</string>
 	            <string>com.googleusercontent.apps.842347528183-nltr2emori520ir1akjh9p3eqnc1lgnk</string>
     		</array>
     	</dict>
     </array>
-    <!-- End of the Google Sign-in Section -->
-
+    <key>FacebookAppID</key>
+    <string>495743285889743</string>
+    <key>FacebookClientToken</key>
+    <string>12b8fb464ff47554caacdc692ee07fff</string>
+    <key>FacebookDisplayName</key>
+    <string>happiness</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
 </dict>
 </plist>
