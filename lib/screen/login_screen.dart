@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             Text(title),
             Text(name),
             Row(
-              children: [GoogleLoginButton(), FacebookLoginButton()],
+              children: [GoogleLoginButton(), FacebookLoginButton(), KakaoLoginButton()],
             )
           ],
         ),
@@ -56,5 +56,14 @@ class FacebookLogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(onPressed: c.logoutFacebook, child: const Text("facebook logout"));
+  }
+}
+
+class KakaoLoginButton extends StatelessWidget {
+  final LoginController c = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(onPressed: c.loginKakao, child: const Text(LoginController.kakao));
   }
 }

@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^3.7.0
   google_sign_in: ^5.4.1
   flutter_facebook_auth: ^4.4.1
+  kakao_flutter_sdk_user: ^1.2.1 # 카카오 로그인
 
 dev_dependencies:
   flutter_test:
