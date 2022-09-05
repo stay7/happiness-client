@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:happiness_client/api/HttpService.dart';
+import 'package:http/http.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 /*
@@ -21,27 +22,25 @@ class LoginController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   final FacebookAuth _facebookSignIn = FacebookAuth.instance;
 
-  Future<UserCredential> loginGoogle() async {
+  void loginGoogle() async {
     final googleUser = await _googleSignIn.signIn();
     final googleAuth = await googleUser?.authentication;
     final credential =
-    GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+        GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
-    UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
-    debugPrint("userCredential = ${userCredential.user}");
-    //TODO:user. uid, email, emailVerified
-    return userCredential;
+    var userCredential = await _firebaseAuth.signInWithCredential(credential);
+    _requestSignUpByCredential(ProviderType.google, userCredential);
   }
 
   /**
       userData : {email: sangmin95@gmail.com, id: 5189979114391071, picture: {data: {is_silhouette: false, height: 200, url: https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=5189979114391071&width=200&ext=1664813287&hash=AeTaDbZfpjSTUwabFLI, width: 200}}, name: 서상민}
    */
   void loginFacebook() async {
-    final LoginResult loginResult = await _facebookSignIn.login(permissions: ['email', 'public_profile']);
+    final loginResult = await _facebookSignIn.login(permissions: ['email', 'public_profile']);
     if (loginResult.status == LoginStatus.success) {
       final OAuthCredential credential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
-      debugPrint(userCredential.toString());
+      var userCredential = await _firebaseAuth.signInWithCredential(credential);
+      _requestSignUpByCredential(ProviderType.facebook, userCredential);
     } else {
       print(loginResult.status);
       print(loginResult.message);
@@ -49,22 +48,67 @@ class LoginController extends GetxController {
   }
 
   void loginKakao() async {
+    final serviceTerms = ['email'];
+
     try {
       if (await isKakaoTalkInstalled()) {
-        OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+        OAuthToken token = await UserApi.instance.loginWithKakaoAccount(serviceTerms: serviceTerms);
         print("카카오톡으로 로그인 성공 ${token.accessToken}");
       } else {
-        var oAuthToken = await UserApi.instance.loginWithKakaoAccount();
+        var oAuthToken = await UserApi.instance.loginWithKakaoAccount(serviceTerms: serviceTerms);
+
         print('카카오 계정으로 로그인 성공 $oAuthToken');
       }
       final user = await UserApi.instance.me();
-      print("user: $user");
+      if (user.kakaoAccount!.emailNeedsAgreement == true) {
+        await UserApi.instance.loginWithNewScopes(['account_email']);
+      }
+
+      _requestSignUp(
+          ProviderType.kakao, user.id.toString(), user.kakaoAccount!.email!, user.kakaoAccount!.isEmailVerified!);
     } catch (error) {
       print('카카오톡으로 로그인 실패 $error}');
     }
   }
 
+  void signOutKakao() async {
+    await UserApi.instance.unlink();
+  }
+
   void logoutFacebook() {
     _facebookSignIn.logOut();
   }
+
+  Future _requestSignUp(ProviderType providerType, String providerId, String email, bool emailVerified) async {
+    final uri = Uri.parse("${HttpService.localhost}oauth/signup/${providerType.name}");
+    final header = {"Content-Type": "application/json"};
+    final body = <String, String>{'email': email, 'providerId': providerId, 'emailVerified': emailVerified.toString()};
+    final res = await post(uri, headers: header, body: json.encode(body));
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      print(body);
+    }
+  }
+
+  Future _requestSignUpByCredential(ProviderType providerType, UserCredential userCredential) async {
+    final user = userCredential.user;
+    if (user == null || user.email == null) throw Exception("email not exist");
+
+    final uri = Uri.parse("${HttpService.localhost}oauth/signup/${providerType.name}");
+    final header = {"Content-Type": "application/json"};
+    final body = <String, String>{
+      'email': user.email!,
+      'providerId': user.uid,
+      'emailVerified': user.emailVerified.toString()
+    };
+    final res = await post(uri, headers: header, body: json.encode(body));
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      print(body);
+    }
+  }
 }
+
+enum ProviderType { kakao, naver, google, facebook, apple }

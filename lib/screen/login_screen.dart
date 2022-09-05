@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             Text(title),
             Text(name),
             Row(
-              children: [GoogleLoginButton(), FacebookLoginButton(), KakaoLoginButton()],
+              children: [GoogleLoginButton(), FacebookLoginButton(), KakaoLoginButton(), TextButton(onPressed: c.signOutKakao, child: const Text("logout kakao"))],
             )
           ],
         ),
