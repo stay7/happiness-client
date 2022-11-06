@@ -21,12 +21,14 @@ class _SignupClient implements SignupClient {
   String? baseUrl;
 
   @override
-  Future<TokenResponse> signup(form) async {
+  Future<TokenResponse> signup(
+    provider,
+    form,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(form.toJson());
+    final _data = form;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
       method: 'POST',
@@ -35,7 +37,30 @@ class _SignupClient implements SignupClient {
     )
             .compose(
               _dio.options,
-              '/oauth/signup/{provider}',
+              '/oauth/signup/${provider}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = TokenResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<TokenResponse> refresh(form) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = form;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/oauth/refresh',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -1,14 +1,15 @@
+import 'dart:developer' as developer;
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:happiness_client/api/signup_client.dart';
-import 'package:happiness_client/bloc/signup_form.dart';
+import 'package:happiness_client/api/type/signup_form.dart';
 import 'package:happiness_client/screen/home_screen.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:developer' as developer;
 
 /*
 firebase documentation : https://firebase.google.com/docs/auth/flutter/federated-auth
@@ -37,7 +38,7 @@ class LoginController extends GetxController {
 
     if (accessToken != null && refreshToken != null) {
       developer.log('accessToken, refreshToken exist');
-      Get.to(() => const HomeScreen());
+      // Get.to(() => const HomeScreen());
     }
 
     final Dio dio = Dio();
@@ -104,14 +105,13 @@ class LoginController extends GetxController {
 
   Future _requestSignUp(ProviderType providerType, String providerId, String email, bool emailVerified) async {
     final form = SignupForm(
-        providerType: providerType,
         email: email,
         providerId: providerId,
         emailVerified: emailVerified,
         deviceUuid: sp.getString('deviceUuid')!,
         lang: sp.getString('lang')!);
 
-    _signup(form);
+    _signup(providerType, form);
   }
 
   Future _requestSignUpByCredential(ProviderType providerType, UserCredential userCredential) async {
@@ -119,20 +119,20 @@ class LoginController extends GetxController {
     if (user == null || user.email == null) throw Exception("email not exist");
 
     final form = SignupForm(
-        providerType: providerType,
         email: user.email!,
         providerId: providerType.name,
         emailVerified: user.emailVerified,
         deviceUuid: sp.getString('deviceUuid')!,
         lang: sp.getString('lang')!);
-    _signup(form);
+    _signup(providerType, form);
   }
 
-  Future _signup(SignupForm form) async {
-    final tokenResponse = await _signupClient.signup(form);
+  Future _signup(ProviderType providerType, SignupForm form) async {
+    final tokenResponse = await _signupClient.signup(providerType.name, form);
     if (tokenResponse.status == 0) {
       sp.setString('accessToken', tokenResponse.accessToken);
       sp.setString('refreshToken', tokenResponse.refreshToken);
+      Get.to(() => const HomeScreen());
     }
   }
 }
