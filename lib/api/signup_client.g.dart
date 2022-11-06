@@ -28,7 +28,8 @@ class _SignupClient implements SignupClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = form;
+    final _data = <String, dynamic>{};
+    _data.addAll(form.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
       method: 'POST',

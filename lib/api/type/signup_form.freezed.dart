@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+SignupForm _$SignupFormFromJson(Map<String, dynamic> json) {
+  return _SignupForm.fromJson(json);
+}
+
 /// @nodoc
 mixin _$SignupForm {
   String get email => throw _privateConstructorUsedError;
@@ -22,6 +26,7 @@ mixin _$SignupForm {
   String get deviceUuid => throw _privateConstructorUsedError;
   String get lang => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SignupFormCopyWith<SignupForm> get copyWith =>
       throw _privateConstructorUsedError;
@@ -144,7 +149,7 @@ class __$$_SignupFormCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_SignupForm implements _SignupForm {
   const _$_SignupForm(
       {required this.email,
@@ -152,6 +157,9 @@ class _$_SignupForm implements _SignupForm {
       required this.emailVerified,
       required this.deviceUuid,
       required this.lang});
+
+  factory _$_SignupForm.fromJson(Map<String, dynamic> json) =>
+      _$$_SignupFormFromJson(json);
 
   @override
   final String email;
@@ -184,6 +192,7 @@ class _$_SignupForm implements _SignupForm {
             (identical(other.lang, lang) || other.lang == lang));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, email, providerId, emailVerified, deviceUuid, lang);
@@ -193,6 +202,13 @@ class _$_SignupForm implements _SignupForm {
   @pragma('vm:prefer-inline')
   _$$_SignupFormCopyWith<_$_SignupForm> get copyWith =>
       __$$_SignupFormCopyWithImpl<_$_SignupForm>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SignupFormToJson(
+      this,
+    );
+  }
 }
 
 abstract class _SignupForm implements SignupForm {
@@ -202,6 +218,9 @@ abstract class _SignupForm implements SignupForm {
       required final bool emailVerified,
       required final String deviceUuid,
       required final String lang}) = _$_SignupForm;
+
+  factory _SignupForm.fromJson(Map<String, dynamic> json) =
+      _$_SignupForm.fromJson;
 
   @override
   String get email;

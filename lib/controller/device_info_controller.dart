@@ -17,6 +17,7 @@ class InitInfoController extends GetxController {
   }
 
   void initDeviceInfo(BuildContext context) async {
+    developer.log('initDeviceInfo');
     final locale = Localizations.localeOf(context);
 
     if (Platform.isAndroid) {
