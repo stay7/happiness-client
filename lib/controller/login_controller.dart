@@ -1,12 +1,14 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:happiness_client/api/HttpService.dart';
-import 'package:http/http.dart';
+import 'package:happiness_client/api/signup_client.dart';
+import 'package:happiness_client/bloc/signup_form.dart';
+import 'package:happiness_client/screen/home_screen.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer' as developer;
 
 /*
 firebase documentation : https://firebase.google.com/docs/auth/flutter/federated-auth
@@ -21,6 +23,27 @@ class LoginController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   final FacebookAuth _facebookSignIn = FacebookAuth.instance;
+  late final SignupClient _signupClient;
+  late final SharedPreferences sp;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    sp = await SharedPreferences.getInstance();
+    final accessToken = sp.getString('accessToken');
+    final refreshToken = sp.getString('refreshToken');
+
+    developer.log("accessToken=$accessToken, refreshToken=$refreshToken");
+
+    if (accessToken != null && refreshToken != null) {
+      developer.log('accessToken, refreshToken exist');
+      Get.to(() => const HomeScreen());
+    }
+
+    final Dio dio = Dio();
+    dio.options.headers["Content-Type"] = "application/json";
+    _signupClient = SignupClient(dio);
+  }
 
   void loginGoogle() async {
     final googleUser = await _googleSignIn.signIn();
@@ -80,33 +103,36 @@ class LoginController extends GetxController {
   }
 
   Future _requestSignUp(ProviderType providerType, String providerId, String email, bool emailVerified) async {
-    final uri = Uri.parse("${HttpService.localhost}oauth/signup/${providerType.name}");
-    final header = {"Content-Type": "application/json"};
-    final body = <String, String>{'email': email, 'providerId': providerId, 'emailVerified': emailVerified.toString()};
-    final res = await post(uri, headers: header, body: json.encode(body));
+    final form = SignupForm(
+        providerType: providerType,
+        email: email,
+        providerId: providerId,
+        emailVerified: emailVerified,
+        deviceUuid: sp.getString('deviceUuid')!,
+        lang: sp.getString('lang')!);
 
-    if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body);
-      print(body);
-    }
+    _signup(form);
   }
 
   Future _requestSignUpByCredential(ProviderType providerType, UserCredential userCredential) async {
     final user = userCredential.user;
     if (user == null || user.email == null) throw Exception("email not exist");
 
-    final uri = Uri.parse("${HttpService.localhost}oauth/signup/${providerType.name}");
-    final header = {"Content-Type": "application/json"};
-    final body = <String, String>{
-      'email': user.email!,
-      'providerId': user.uid,
-      'emailVerified': user.emailVerified.toString()
-    };
-    final res = await post(uri, headers: header, body: json.encode(body));
+    final form = SignupForm(
+        providerType: providerType,
+        email: user.email!,
+        providerId: providerType.name,
+        emailVerified: user.emailVerified,
+        deviceUuid: sp.getString('deviceUuid')!,
+        lang: sp.getString('lang')!);
+    _signup(form);
+  }
 
-    if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body);
-      print(body);
+  Future _signup(SignupForm form) async {
+    final tokenResponse = await _signupClient.signup(form);
+    if (tokenResponse.status == 0) {
+      sp.setString('accessToken', tokenResponse.accessToken);
+      sp.setString('refreshToken', tokenResponse.refreshToken);
     }
   }
 }

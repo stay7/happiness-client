@@ -35,19 +35,23 @@ dependencies:
   firebase_auth: ^3.7.0
   google_sign_in: ^5.4.1
   flutter_facebook_auth: ^4.4.1
-  kakao_flutter_sdk_user: ^1.2.1 # 카카오 로그인
+  kakao_flutter_sdk_user: ^1.2.2 # 카카오 로그인
   http: ^0.13.5
+  shared_preferences: ^2.0.15
+  flutter_secure_storage: ^6.0.0
+  flutter_bloc: ^8.1.1
+  device_info_plus: ^8.0.0
+  retrofit: '>=3.0.0 <4.0.0'
+  dio: ^4.0.6
+  json_annotation: ^4.7.0
+  json_serializable: ^6.5.4
+  build_runner: ^2.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  retrofit_generator: ^4.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

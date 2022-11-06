@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:happiness_client/controller/device_info_controller.dart';
 import 'package:happiness_client/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -13,6 +14,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoginController c = Get.put(LoginController());
+    final InitInfoController d = Get.put(InitInfoController());
+    d.initDeviceInfo(context);
 
     return Scaffold(
       body: Container(
