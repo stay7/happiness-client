@@ -18,8 +18,7 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl({required this.signupClient, required this.devicePreference});
 
   @override
-  Future<Token> refresh(RefreshForm form) =>
-      signupClient.refresh(form).then((value) {
+  Future<Token> refresh(RefreshForm form) => signupClient.refresh(form).then((value) {
         return value.data.data;
       });
 

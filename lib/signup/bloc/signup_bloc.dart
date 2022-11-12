@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:happiness_client/signup/signup_command.dart';
 import 'package:happiness_client/signup/signup_provider.dart';
@@ -24,30 +25,41 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     late final SignupCommand command;
     emit(SignupLoading());
 
-    switch (event.signupProvider) {
-      case SignupProvider.KAKAO:
-        final user = await _kakaoUser();
-        command = SignupCommand(
-            signupProvider: event.signupProvider,
-            providerId: user.id.toString(),
-            email: user.kakaoAccount!.email!,
-            emailVerified: user.kakaoAccount!.isEmailVerified!);
-        break;
-      case SignupProvider.GOOGLE:
-        final user = await GoogleSignIn(scopes: ['email', 'profile']).signIn();
-        command = SignupCommand(
-          signupProvider: SignupProvider.GOOGLE,
-          email: user!.email,
-          providerId: user.id,
-          emailVerified: true,
-        );
-        break;
-      case SignupProvider.APPLE:
-        break;
-      case SignupProvider.NAVER:
-        break;
+    try {
+      switch (event.signupProvider) {
+        case SignupProvider.KAKAO:
+          final user = await _kakaoUser();
+          command = SignupCommand(
+              signupProvider: event.signupProvider,
+              providerId: user.id.toString(),
+              email: user.kakaoAccount!.email!,
+              emailVerified: user.kakaoAccount!.isEmailVerified!);
+          break;
+        case SignupProvider.GOOGLE:
+          final user = await GoogleSignIn(scopes: ['email', 'profile']).signIn();
+          command = SignupCommand(
+            signupProvider: SignupProvider.GOOGLE,
+            email: user!.email,
+            providerId: user.id,
+            emailVerified: true,
+          );
+          break;
+        case SignupProvider.APPLE:
+          break;
+        case SignupProvider.NAVER:
+          break;
+      }
+      authRepository.signup(command);
+      emit(SignupSuccess());
+    } catch (e) {
+      late final String message;
+      switch (e.runtimeType) {
+        case DioError:
+          message = (e as DioError).message;
+          break;
+      }
+      emit(SignupError(message: message));
     }
-    authRepository.signup(command);
   }
 }
 
