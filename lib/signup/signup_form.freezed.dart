@@ -20,11 +20,11 @@ SignupForm _$SignupFormFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SignupForm {
+  SignupProvider get signupProvider => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get providerId => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
   String get deviceUuid => throw _privateConstructorUsedError;
-  String get lang => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,11 +39,11 @@ abstract class $SignupFormCopyWith<$Res> {
       _$SignupFormCopyWithImpl<$Res, SignupForm>;
   @useResult
   $Res call(
-      {String email,
+      {SignupProvider signupProvider,
+      String email,
       String providerId,
       bool emailVerified,
-      String deviceUuid,
-      String lang});
+      String deviceUuid});
 }
 
 /// @nodoc
@@ -59,13 +59,17 @@ class _$SignupFormCopyWithImpl<$Res, $Val extends SignupForm>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signupProvider = null,
     Object? email = null,
     Object? providerId = null,
     Object? emailVerified = null,
     Object? deviceUuid = null,
-    Object? lang = null,
   }) {
     return _then(_value.copyWith(
+      signupProvider: null == signupProvider
+          ? _value.signupProvider
+          : signupProvider // ignore: cast_nullable_to_non_nullable
+              as SignupProvider,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -81,10 +85,6 @@ class _$SignupFormCopyWithImpl<$Res, $Val extends SignupForm>
       deviceUuid: null == deviceUuid
           ? _value.deviceUuid
           : deviceUuid // ignore: cast_nullable_to_non_nullable
-              as String,
-      lang: null == lang
-          ? _value.lang
-          : lang // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -99,11 +99,11 @@ abstract class _$$_SignupFormCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String email,
+      {SignupProvider signupProvider,
+      String email,
       String providerId,
       bool emailVerified,
-      String deviceUuid,
-      String lang});
+      String deviceUuid});
 }
 
 /// @nodoc
@@ -117,13 +117,17 @@ class __$$_SignupFormCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signupProvider = null,
     Object? email = null,
     Object? providerId = null,
     Object? emailVerified = null,
     Object? deviceUuid = null,
-    Object? lang = null,
   }) {
     return _then(_$_SignupForm(
+      signupProvider: null == signupProvider
+          ? _value.signupProvider
+          : signupProvider // ignore: cast_nullable_to_non_nullable
+              as SignupProvider,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -140,10 +144,6 @@ class __$$_SignupFormCopyWithImpl<$Res>
           ? _value.deviceUuid
           : deviceUuid // ignore: cast_nullable_to_non_nullable
               as String,
-      lang: null == lang
-          ? _value.lang
-          : lang // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -152,15 +152,17 @@ class __$$_SignupFormCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SignupForm implements _SignupForm {
   const _$_SignupForm(
-      {required this.email,
+      {required this.signupProvider,
+      required this.email,
       required this.providerId,
       required this.emailVerified,
-      required this.deviceUuid,
-      required this.lang});
+      required this.deviceUuid});
 
   factory _$_SignupForm.fromJson(Map<String, dynamic> json) =>
       _$$_SignupFormFromJson(json);
 
+  @override
+  final SignupProvider signupProvider;
   @override
   final String email;
   @override
@@ -169,12 +171,10 @@ class _$_SignupForm implements _SignupForm {
   final bool emailVerified;
   @override
   final String deviceUuid;
-  @override
-  final String lang;
 
   @override
   String toString() {
-    return 'SignupForm(email: $email, providerId: $providerId, emailVerified: $emailVerified, deviceUuid: $deviceUuid, lang: $lang)';
+    return 'SignupForm(signupProvider: $signupProvider, email: $email, providerId: $providerId, emailVerified: $emailVerified, deviceUuid: $deviceUuid)';
   }
 
   @override
@@ -182,20 +182,21 @@ class _$_SignupForm implements _SignupForm {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SignupForm &&
+            (identical(other.signupProvider, signupProvider) ||
+                other.signupProvider == signupProvider) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.providerId, providerId) ||
                 other.providerId == providerId) &&
             (identical(other.emailVerified, emailVerified) ||
                 other.emailVerified == emailVerified) &&
             (identical(other.deviceUuid, deviceUuid) ||
-                other.deviceUuid == deviceUuid) &&
-            (identical(other.lang, lang) || other.lang == lang));
+                other.deviceUuid == deviceUuid));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, email, providerId, emailVerified, deviceUuid, lang);
+  int get hashCode => Object.hash(runtimeType, signupProvider, email,
+      providerId, emailVerified, deviceUuid);
 
   @JsonKey(ignore: true)
   @override
@@ -213,15 +214,17 @@ class _$_SignupForm implements _SignupForm {
 
 abstract class _SignupForm implements SignupForm {
   const factory _SignupForm(
-      {required final String email,
+      {required final SignupProvider signupProvider,
+      required final String email,
       required final String providerId,
       required final bool emailVerified,
-      required final String deviceUuid,
-      required final String lang}) = _$_SignupForm;
+      required final String deviceUuid}) = _$_SignupForm;
 
   factory _SignupForm.fromJson(Map<String, dynamic> json) =
       _$_SignupForm.fromJson;
 
+  @override
+  SignupProvider get signupProvider;
   @override
   String get email;
   @override
@@ -230,8 +233,6 @@ abstract class _SignupForm implements SignupForm {
   bool get emailVerified;
   @override
   String get deviceUuid;
-  @override
-  String get lang;
   @override
   @JsonKey(ignore: true)
   _$$_SignupFormCopyWith<_$_SignupForm> get copyWith =>

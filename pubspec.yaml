@@ -29,14 +29,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.21.1
   firebase_auth: ^3.7.0
   google_sign_in: ^5.4.1
-  flutter_facebook_auth: ^4.4.1
   kakao_flutter_sdk_user: ^1.2.2 # 카카오 로그인
-  http: ^0.13.5
   shared_preferences: ^2.0.15
   flutter_secure_storage: ^6.0.0
   flutter_bloc: ^8.1.1
@@ -46,13 +43,16 @@ dependencies:
   json_annotation: ^4.7.0
   json_serializable: ^6.5.4
   build_runner: ^2.3.2
-  freezed: ^2.2.1
+  kt_dart: ^1.0.0
+  freezed_annotation: ^2.2.0
+  fpdart: ^0.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   retrofit_generator: ^4.2.0
+  freezed: ^2.2.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

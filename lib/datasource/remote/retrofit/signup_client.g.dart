@@ -13,7 +13,7 @@ class _SignupClient implements SignupClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:8080';
+    baseUrl ??= 'http://dev.happiness-lsm.xyz';
   }
 
   final Dio _dio;
@@ -21,7 +21,7 @@ class _SignupClient implements SignupClient {
   String? baseUrl;
 
   @override
-  Future<TokenResponse> signup(
+  Future<HttpResponse<BaseResponse<Token>>> signup(
     provider,
     form,
   ) async {
@@ -30,8 +30,8 @@ class _SignupClient implements SignupClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(form.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<BaseResponse<Token>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -43,18 +43,22 @@ class _SignupClient implements SignupClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponse.fromJson(_result.data!);
-    return value;
+    final value = BaseResponse<Token>.fromJson(
+      _result.data!,
+      (json) => Token.fromJson(json as Map<String, dynamic>),
+    );
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   @override
-  Future<TokenResponse> refresh(form) async {
+  Future<HttpResponse<BaseResponse<Token>>> refresh(form) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = form;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<BaseResponse<Token>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,8 +70,12 @@ class _SignupClient implements SignupClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponse.fromJson(_result.data!);
-    return value;
+    final value = BaseResponse<Token>.fromJson(
+      _result.data!,
+      (json) => Token.fromJson(json as Map<String, dynamic>),
+    );
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

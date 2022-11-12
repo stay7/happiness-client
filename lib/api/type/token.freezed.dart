@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'token_response.dart';
+part of 'token.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,32 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-TokenResponse _$TokenResponseFromJson(Map<String, dynamic> json) {
-  return _TokenResponse.fromJson(json);
+Token _$TokenFromJson(Map<String, dynamic> json) {
+  return _Token.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TokenResponse {
-  int get status => throw _privateConstructorUsedError;
+mixin _$Token {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TokenResponseCopyWith<TokenResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+  $TokenCopyWith<Token> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TokenResponseCopyWith<$Res> {
-  factory $TokenResponseCopyWith(
-          TokenResponse value, $Res Function(TokenResponse) then) =
-      _$TokenResponseCopyWithImpl<$Res, TokenResponse>;
+abstract class $TokenCopyWith<$Res> {
+  factory $TokenCopyWith(Token value, $Res Function(Token) then) =
+      _$TokenCopyWithImpl<$Res, Token>;
   @useResult
-  $Res call({int status, String accessToken, String refreshToken});
+  $Res call({String accessToken, String refreshToken});
 }
 
 /// @nodoc
-class _$TokenResponseCopyWithImpl<$Res, $Val extends TokenResponse>
-    implements $TokenResponseCopyWith<$Res> {
-  _$TokenResponseCopyWithImpl(this._value, this._then);
+class _$TokenCopyWithImpl<$Res, $Val extends Token>
+    implements $TokenCopyWith<$Res> {
+  _$TokenCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -52,15 +49,10 @@ class _$TokenResponseCopyWithImpl<$Res, $Val extends TokenResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? accessToken = null,
     Object? refreshToken = null,
   }) {
     return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as int,
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
@@ -74,36 +66,27 @@ class _$TokenResponseCopyWithImpl<$Res, $Val extends TokenResponse>
 }
 
 /// @nodoc
-abstract class _$$_TokenResponseCopyWith<$Res>
-    implements $TokenResponseCopyWith<$Res> {
-  factory _$$_TokenResponseCopyWith(
-          _$_TokenResponse value, $Res Function(_$_TokenResponse) then) =
-      __$$_TokenResponseCopyWithImpl<$Res>;
+abstract class _$$_TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
+  factory _$$_TokenCopyWith(_$_Token value, $Res Function(_$_Token) then) =
+      __$$_TokenCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int status, String accessToken, String refreshToken});
+  $Res call({String accessToken, String refreshToken});
 }
 
 /// @nodoc
-class __$$_TokenResponseCopyWithImpl<$Res>
-    extends _$TokenResponseCopyWithImpl<$Res, _$_TokenResponse>
-    implements _$$_TokenResponseCopyWith<$Res> {
-  __$$_TokenResponseCopyWithImpl(
-      _$_TokenResponse _value, $Res Function(_$_TokenResponse) _then)
+class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res, _$_Token>
+    implements _$$_TokenCopyWith<$Res> {
+  __$$_TokenCopyWithImpl(_$_Token _value, $Res Function(_$_Token) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? accessToken = null,
     Object? refreshToken = null,
   }) {
-    return _then(_$_TokenResponse(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$_Token(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
@@ -118,17 +101,12 @@ class __$$_TokenResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TokenResponse implements _TokenResponse {
-  const _$_TokenResponse(
-      {required this.status,
-      required this.accessToken,
-      required this.refreshToken});
+class _$_Token implements _Token {
+  const _$_Token({required this.accessToken, required this.refreshToken});
 
-  factory _$_TokenResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_TokenResponseFromJson(json);
+  factory _$_Token.fromJson(Map<String, dynamic> json) =>
+      _$$_TokenFromJson(json);
 
-  @override
-  final int status;
   @override
   final String accessToken;
   @override
@@ -136,15 +114,14 @@ class _$_TokenResponse implements _TokenResponse {
 
   @override
   String toString() {
-    return 'TokenResponse(status: $status, accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TokenResponse &&
-            (identical(other.status, status) || other.status == status) &&
+            other is _$_Token &&
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
             (identical(other.refreshToken, refreshToken) ||
@@ -153,40 +130,35 @@ class _$_TokenResponse implements _TokenResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TokenResponseCopyWith<_$_TokenResponse> get copyWith =>
-      __$$_TokenResponseCopyWithImpl<_$_TokenResponse>(this, _$identity);
+  _$$_TokenCopyWith<_$_Token> get copyWith =>
+      __$$_TokenCopyWithImpl<_$_Token>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TokenResponseToJson(
+    return _$$_TokenToJson(
       this,
     );
   }
 }
 
-abstract class _TokenResponse implements TokenResponse {
-  const factory _TokenResponse(
-      {required final int status,
-      required final String accessToken,
-      required final String refreshToken}) = _$_TokenResponse;
+abstract class _Token implements Token {
+  const factory _Token(
+      {required final String accessToken,
+      required final String refreshToken}) = _$_Token;
 
-  factory _TokenResponse.fromJson(Map<String, dynamic> json) =
-      _$_TokenResponse.fromJson;
+  factory _Token.fromJson(Map<String, dynamic> json) = _$_Token.fromJson;
 
-  @override
-  int get status;
   @override
   String get accessToken;
   @override
   String get refreshToken;
   @override
   @JsonKey(ignore: true)
-  _$$_TokenResponseCopyWith<_$_TokenResponse> get copyWith =>
+  _$$_TokenCopyWith<_$_Token> get copyWith =>
       throw _privateConstructorUsedError;
 }
