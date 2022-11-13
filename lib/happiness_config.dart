@@ -1,3 +1,5 @@
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class HappinessConfig {
@@ -7,5 +9,7 @@ abstract class HappinessConfig {
 
   static Future<void> initialize() async {
     sp = await SharedPreferences.getInstance();
+    await initializeDateFormatting();
+    Intl.defaultLocale = 'ko_KR';
   }
 }
