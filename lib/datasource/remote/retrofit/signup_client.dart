@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:happiness_client/api/type/refresh_form.dart';
 import 'package:happiness_client/signup/signup_form.dart';
-import 'package:happiness_client/api/type/token.dart';
 import 'package:happiness_client/datasource/remote/base_response.dart';
 import 'package:happiness_client/happiness_config.dart';
+import 'package:happiness_client/type/refresh_form.dart';
+import 'package:happiness_client/type/token.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'signup_client.g.dart';

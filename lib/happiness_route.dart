@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happiness_client/repository/auth_repository.dart';
-import 'package:happiness_client/screen/home_screen.dart';
+import 'package:happiness_client/screen/home/home_screen.dart';
 import 'package:happiness_client/screen/login_screen.dart';
 import 'package:happiness_client/signup/bloc/signup_bloc.dart';
 import 'package:happiness_client/splash/bloc/splash_bloc.dart';

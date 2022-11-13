@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:happiness_client/api/type/refresh_form.dart';
 import 'package:happiness_client/datasource/local/auth_preference.dart';
 import 'package:happiness_client/datasource/local/device_preference.dart';
 import 'package:happiness_client/signup/signup_command.dart';
 import 'package:happiness_client/signup/signup_form.dart';
-import 'package:happiness_client/api/type/token.dart';
 import 'package:happiness_client/datasource/remote/retrofit/signup_client.dart';
+import 'package:happiness_client/type/refresh_form.dart';
+import 'package:happiness_client/type/token.dart';
 
 abstract class AuthRepository {
   FutureOr<void> signup(SignupCommand command);
@@ -24,8 +24,7 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl({required this.signupClient, required this.devicePreference, required this.authPreference});
 
   @override
-  Future<Token> refresh(RefreshForm form) =>
-      signupClient.refresh(form).then((value) {
+  Future<Token> refresh(RefreshForm form) => signupClient.refresh(form).then((value) {
         return value.data.data;
       });
 
@@ -44,5 +43,4 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   bool hasToken() => (authPreference.accesToken() != null) && (authPreference.refreshToken() != null);
-
 }

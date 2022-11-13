@@ -1,4 +1,4 @@
-import 'package:happiness_client/api/type/token.dart';
+import 'package:happiness_client/type/token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPreference {

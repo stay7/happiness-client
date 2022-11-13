@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:happiness_client/datasource/remote/retrofit/signup_client.dart';
-import 'package:happiness_client/api/type/refresh_form.dart';
+import 'package:happiness_client/type/refresh_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer' as developer;
 

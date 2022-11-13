@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:happiness_client/screen/calendar_tab.dart';
-import 'package:happiness_client/screen/first_screen.dart';
-import 'package:happiness_client/screen/settings_tab.dart';
+import 'package:happiness_client/screen/home/tab_calendar.dart';
+import 'package:happiness_client/screen/home/tab_home.dart';
+import 'package:happiness_client/screen/home/tab_settings.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "HomeScreen";

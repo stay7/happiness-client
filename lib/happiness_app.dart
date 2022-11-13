@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happiness_client/api/common_dio.dart';
+import 'package:happiness_client/datasource/remote/common_dio.dart';
 import 'package:happiness_client/datasource/local/auth_preference.dart';
 import 'package:happiness_client/datasource/local/device_preference.dart';
 import 'package:happiness_client/datasource/remote/retrofit/signup_client.dart';
