@@ -36,19 +36,19 @@ class LoginScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () =>
-                      context.read<SignupBloc>().add(SignupRequested(signupProvider: SignupProvider.KAKAO)),
+                      context.read<SignupBloc>().add(RequestSignup(signupProvider: SignupProvider.KAKAO)),
                   child: const Text('kakao')),
               ElevatedButton(
                   onPressed: () =>
-                      context.read<SignupBloc>().add(SignupRequested(signupProvider: SignupProvider.NAVER)),
+                      context.read<SignupBloc>().add(RequestSignup(signupProvider: SignupProvider.NAVER)),
                   child: const Text('naver')),
               ElevatedButton(
                   onPressed: () =>
-                      context.read<SignupBloc>().add(SignupRequested(signupProvider: SignupProvider.GOOGLE)),
+                      context.read<SignupBloc>().add(RequestSignup(signupProvider: SignupProvider.GOOGLE)),
                   child: const Text('google')),
               ElevatedButton(
                   onPressed: () =>
-                      context.read<SignupBloc>().add(SignupRequested(signupProvider: SignupProvider.APPLE)),
+                      context.read<SignupBloc>().add(RequestSignup(signupProvider: SignupProvider.APPLE)),
                   child: const Text('apple')),
             ],
           ),

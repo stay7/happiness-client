@@ -10,7 +10,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final AuthRepository authRepository;
 
   SplashBloc({required this.authRepository}) : super(SplashInitial()) {
-    on<SplashCheckToken>(_onCheckToken);
+    on<LoadToken>(_onCheckToken);
   }
 
   void _onCheckToken(SplashEvent event, Emitter<SplashState> emit) {

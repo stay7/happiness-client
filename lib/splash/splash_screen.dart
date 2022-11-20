@@ -22,8 +22,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      context.read<SplashBloc>().add(SplashCheckToken());
+      context.read<SplashBloc>().add(LoadToken());
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override

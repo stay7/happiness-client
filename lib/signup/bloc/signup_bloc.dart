@@ -18,10 +18,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final AuthRepository authRepository;
 
   SignupBloc({required this.authRepository}) : super(SignupInitial()) {
-    on<SignupRequested>(_onSignupRequested);
+    on<RequestSignup>(_onSignupRequested);
   }
 
-  FutureOr<void> _onSignupRequested(SignupRequested event, Emitter<SignupState> emit) async {
+  FutureOr<void> _onSignupRequested(RequestSignup event, Emitter<SignupState> emit) async {
     late final SignupCommand command;
     emit(SignupLoading());
 

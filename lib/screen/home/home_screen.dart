@@ -19,13 +19,13 @@ class HomeScreen extends StatelessWidget {
       tabBuilder: (context, index) {
         switch(index){
           case 0:
-            return FirstScreen();
+            return const HomeTab();
           case 1:
-            return CalendarTab();
+            return const CalendarTab();
           case 2:
-            return SettingsTab();
+            return const SettingsTab();
           default:
-            return FirstScreen();
+            return const HomeTab();
         }
       },
     );
